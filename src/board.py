@@ -2,15 +2,17 @@ import pygame as pg
 from src.piece.pawn import Pawn
 from src.piece.king import King 
 from src.piece.queen import Queen  
-from src.piece.rock import Rock 
+from src.piece.rook import Rook 
 from src.piece.knight import Knight
 from src.piece.bishop import Bishop 
  
 
 
 
-COLOR_GRAY = (128, 128, 128)
+COLOR_GRAY = (128, 128, 200)
 COLOR_WHITE = (255, 255, 255)
+COLOR_BLACK = (0, 0, 0)
+
 
 
 class BoardPiece():
@@ -31,8 +33,7 @@ class BoardPiece():
 class Board():
     
     def __init__(self) -> None:
-        self.figures = [Pawn(COLOR_WHITE, 1, 1), King(COLOR_WHITE, 4, 7)]
-        
+        self.figures = []
         self.boardPieces = []
         for i in range(8):
             for j in range(8):
@@ -60,7 +61,42 @@ class Board():
         for figure in self.figures: 
             figure.draw(screen)
         
-
+        
+    def reset(self):
+        
+        for i in range(8):
+            self.figures.append(Pawn(COLOR_BLACK, i ,1))
+            self.figures.append(Pawn(COLOR_WHITE, i, 6))
+            
+        # King
+        
+        self.figures.append(King(COLOR_BLACK, 4, 0))
+        self.figures.append(King(COLOR_WHITE, 4, 7))
+        
+        # Queen
+        self.figures.append(Queen(COLOR_BLACK, 3, 0))
+        self.figures.append(Queen(COLOR_WHITE, 3, 7))
+        
+        # Bishop
+        self.figures.append(Bishop(COLOR_BLACK, 2, 0))
+        self.figures.append(Bishop(COLOR_BLACK, 5, 0))
+        self.figures.append(Bishop(COLOR_WHITE, 2, 7))
+        self.figures.append(Bishop(COLOR_WHITE, 5, 7))
+        
+        # Knight
+        self.figures.append(Knight(COLOR_BLACK, 1, 0))
+        self.figures.append(Knight(COLOR_BLACK, 6, 0))
+        self.figures.append(Knight(COLOR_WHITE, 1, 7))
+        self.figures.append(Knight(COLOR_WHITE, 6, 7))
+        
+        # Rook
+        self.figures.append(Rook(COLOR_BLACK, 0, 0))
+        self.figures.append(Rook(COLOR_BLACK, 7, 0))
+        self.figures.append(Rook(COLOR_WHITE, 0, 7))
+        self.figures.append(Rook(COLOR_WHITE, 7, 7))
+        
+        
+    
 
         
             

@@ -14,16 +14,10 @@ def main():
     pygame.font.init()
     font = pygame.font.SysFont(font, 30)
     running = True
-    
-    color = (255, 0, 0)
-    gray_color = (128, 128, 128)
-    white_color = (255, 255, 255)
-    
-    inc = 64
- 
  
  
     chess_board = board.Board()
+    chess_board.reset()
     chess_board.draw(screen)
     
     # pawn1 = Pawn(white_color, 1, 1)
