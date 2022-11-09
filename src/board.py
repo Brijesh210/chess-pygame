@@ -31,7 +31,7 @@ class BoardPiece():
         
         
 class Board():
-    
+    selectedFigure = None
     def __init__(self) -> None:
         self.figures = []
         self.boardPieces = []
@@ -43,14 +43,24 @@ class Board():
                     self.boardPieces.append(BoardPiece(i, j, COLOR_WHITE))   
         
     
-    def selectFigure(x,y):
+    def selectFigure(self, pos_x, pos_y):
+          
+        for figure in self.figures: 
+            if figure.pos_x == pos_x and figure.pos_y == pos_y:
+                print("selected")
+                self.selectedFigure = figure
+                return self.selectedFigure
+        
+        return None
+                    
         # if can be selected then select else return
-        pass
+        
     
-    def moveFigure(x,y):
+    def moveFigure(self, pos_x, pos_y):
         # if selected and if selected figure can move to target board piece then move it 
         # figures[selected.x,selected.y].move(x,y) 
-        pass
+        
+        self.selectedFigure.move(pos_x,pos_y)
                     
            
         

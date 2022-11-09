@@ -30,13 +30,16 @@ def main():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()
                 print(pos)
+                chess_board.selectFigure(math.floor(pos[0] / 64), math.floor(pos[1] / 64))
                 # pawn1.move( math.floor(pos[0] / 64), math.floor(pos[1] / 64))
                 # chess_board.draw(screen)
                 # pawn1.draw(screen)
                 pass
             if event.type == pygame.MOUSEBUTTONUP:
-                # pos = pygame.mouse.get_pos()
-                # print(pos)
+                pos = pygame.mouse.get_pos()
+                print(pos)
+                chess_board.moveFigure(math.floor(pos[0] / 64), math.floor(pos[1] / 64))
+                chess_board.draw(screen)
                 # pawn1.move( math.floor(pos[0] / 64), math.floor(pos[1] / 64))
                 # chess_board.draw(screen)
                 # pawn1.draw(screen)
