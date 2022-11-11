@@ -18,7 +18,8 @@ def main():
  
     chess_board = board.Board()
     chess_board.reset()
-    chess_board.draw(screen)
+    chess_board.draw_boardPieces(screen)
+    chess_board.draw_figures(screen)
     
     # pawn1 = Pawn(white_color, 1, 1)
     # pawn1.draw(screen)
@@ -29,7 +30,6 @@ def main():
                 running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()
-                print(pos)
                 chess_board.selectFigure(math.floor(pos[0] / 64), math.floor(pos[1] / 64))
                 # pawn1.move( math.floor(pos[0] / 64), math.floor(pos[1] / 64))
                 # chess_board.draw(screen)
@@ -37,9 +37,9 @@ def main():
                 pass
             if event.type == pygame.MOUSEBUTTONUP:
                 pos = pygame.mouse.get_pos()
-                print(pos)
                 chess_board.moveFigure(math.floor(pos[0] / 64), math.floor(pos[1] / 64))
-                chess_board.draw(screen)
+                chess_board.draw_boardPieces(screen)
+                chess_board.draw_figures(screen)
                 # pawn1.move( math.floor(pos[0] / 64), math.floor(pos[1] / 64))
                 # chess_board.draw(screen)
                 # pawn1.draw(screen)

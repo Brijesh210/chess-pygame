@@ -5,6 +5,7 @@ from src.piece.queen import Queen
 from src.piece.rook import Rook 
 from src.piece.knight import Knight
 from src.piece.bishop import Bishop 
+from src.figure import Figure
  
 
 
@@ -23,7 +24,6 @@ class BoardPiece():
         self.color = color
         
     def draw(self, screen):
-        print(self.color)
         pg.draw.rect(screen, self.color, (self.pos_x * 64, self.pos_y * 64, 64, 64))
 
 
@@ -31,8 +31,10 @@ class BoardPiece():
         
         
 class Board():
-    selectedFigure = None
-    def __init__(self) -> None:
+    color = None
+    selected_figure = None 
+    removed_figure = None
+    def __init__(self):
         self.figures = []
         self.boardPieces = []
         for i in range(8):
@@ -44,14 +46,12 @@ class Board():
         
     
     def selectFigure(self, pos_x, pos_y):
-          
         for figure in self.figures: 
             if figure.pos_x == pos_x and figure.pos_y == pos_y:
                 print("selected")
-                self.selectedFigure = figure
-                return self.selectedFigure
-        
-        return None
+                self.selected_figure = figure
+                self.selected_figure.isSelect = True
+                self.color = figure.color
                     
         # if can be selected then select else return
         
@@ -59,17 +59,77 @@ class Board():
     def moveFigure(self, pos_x, pos_y):
         # if selected and if selected figure can move to target board piece then move it 
         # figures[selected.x,selected.y].move(x,y) 
+        # for figure in self.figures:
+        #     if figure.isSelect == True:
+        #         break 
+        #     elif figure.pos_x == pos_x and figure.pos_y == pos_y:
+        #         print("Deselected")
+        #         figure.isRemove = True
+
+        # for figure in self.figures:
+        #     if figure.isSelect == True:
+        #         figure.canMove(pos_x, pos_y)
+        #         figure.isSelect = False
+        for figure in self.figures: 
+            if figure.pos_x == pos_x and figure.pos_y == pos_y:
+                self.removed_figure = figure
         
-        self.selectedFigure.move(pos_x,pos_y)
+        
+        if self.selected_figure is not None:
+            if self.selected_figure.canMove(pos_x, pos_y):
+                if self.removed_figure == None:
+                    self.selected_figure.pos_x = pos_x
+                    self.selected_figure.pos_y = pos_y
+                    self.selected_figure.isSelect  = False
+                    self.selected_figure = None
+                    self.color = None 
+                
+                if self.removed_figure is not None:
+                    if self.removed_figure.color != self.color:
+                        self.figures.remove(self.removed_figure)
+                        self.removed_figure = None
+                        self.selected_figure.pos_x = pos_x
+                        self.selected_figure.pos_y = pos_y
+                        self.selected_figure.isSelect  = False 
+                        self.selected_figure = None
+                        self.color = None
+            else:
+                self.selected_figure = None
+                self.removed_figure = None
+        else:
+            self.selected_figure = None
+            self.removed_figure = None
+      
+            # for figureR in self.figures:
+            #     if figureR.pos_x == pos_x and figureR.pos_y == pos_y and figureR.color != self.color:        
+            #         print("figure remove and placed new")
+            #         self.figures.remove(figureR)
                     
+            #         figure.pos_x = pos_x
+            #         figure.pos_y = pos_y
+            #         figure.isSelect = False
+                    
+            #     if figureR.pos_x == pos_x and figureR.pos_y == pos_y and figureR.color == self.color:
+            #         print("No action taken")
+            
+            #     elif figure.pos_x != pos_x and figure.pos_y != pos_y:
+            #         print("No image still move")
+            #         figure.pos_x = pos_x
+            #         figure.pos_y = pos_y
+            #         figure.isSelect = False
+                                    
            
         
-    def draw(self, screen):
+    def draw_boardPieces(self, screen):
         for piece in self.boardPieces:
             piece.draw(screen)
+    
+    
+    def draw_figures(self, screen):
         
         for figure in self.figures: 
-            figure.draw(screen)
+            if figure.isRemove == False:
+                figure.draw(screen)
         
         
     def reset(self):
@@ -77,6 +137,7 @@ class Board():
         for i in range(8):
             self.figures.append(Pawn(COLOR_BLACK, i ,1))
             self.figures.append(Pawn(COLOR_WHITE, i, 6))
+            
             
         # King
         
