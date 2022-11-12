@@ -1,7 +1,7 @@
 import pygame 
 from src import board
     
-    
+
 class Figure:
     img = None
     isSelect: bool = False
@@ -17,7 +17,7 @@ class Figure:
         self.pos_y = pos_y
 
     def draw(self, screen):
-        screen.blit(self.img, (self.pos_x * 64, self.pos_y * 64))
+        screen.blit(self.img, (self.pos_x * 64,  25 + self.pos_y * 64))
 
                 
                 

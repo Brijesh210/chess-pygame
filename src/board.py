@@ -12,6 +12,24 @@ COLOR_GRAY = (128, 128, 200)
 COLOR_WHITE = (255, 255, 255)
 COLOR_BLACK = (0, 0, 0)
 
+class Button:
+    def __init__(self, screen, pos_x, pos_y, text):
+        self.pos_x = pos_x
+        self.pos_y = pos_y
+        self.text = text
+        font = pg.font.Font("freesansbold.ttf", 20)
+        self.text = font.render(text, True, (0,0,0))
+        self.rect = pg.draw.rect(screen, (123,150, 212), (self.pos_x, self.pos_y, 64, 24))
+        screen.blit(self.text, (pos_x +5, pos_y +3))
+
+class TextBox:
+    def __init__(self, screen, text):
+        font = pg.font.Font("freesansbold.ttf", 20)
+        self.text = font.render(text, True, (0,0,0))
+        screen.blit(self.text, (200, 3))
+            
+    
+    
 
 class BoardPiece:
     def __init__(self, pos_x, pos_y, color):
@@ -20,7 +38,7 @@ class BoardPiece:
         self.color = color
 
     def draw(self, screen):
-        pg.draw.rect(screen, self.color, (self.pos_x * 64, self.pos_y * 64, 64, 64))
+        pg.draw.rect(screen, self.color, (self.pos_x * 64, 25 + self.pos_y * 64, 64, 64))
 
 
 class Board:
@@ -28,7 +46,7 @@ class Board:
     selected_figure = None
     removed_figure = None
 
-    def __init__(self):
+    def __init__(self, screen):
         self.figures = []
         self.boardPieces = []
         for i in range(8):
@@ -87,7 +105,8 @@ class Board:
                 figure.draw(screen)
 
     def reset(self):
-
+        self.figures.clear()
+        
         for i in range(8):
             self.figures.append(Pawn(COLOR_BLACK, i, 1))
             self.figures.append(Pawn(COLOR_WHITE, i, 6))
