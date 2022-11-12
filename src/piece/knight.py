@@ -12,15 +12,15 @@ class Knight(Figure):
         elif color == (0, 0, 0):
             img = pygame.image.load("res\\knight_black.png")
 
-        img = pygame.transform.scale(img, (64, 64))
+        img = pygame.transform.scale(img, (60, 64))
         self.img = img
 
     def canMove(self, removed_figure, new_pos_x, new_pos_y):
-        if 0 <= new_pos_x <= 7 and new_pos_y == self.pos_y:
+        if 0 <= new_pos_x <= 7 and (new_pos_x == self.pos_x - 2 or new_pos_x == self.pos_x + 2) and (new_pos_y == self.pos_y - 1 or new_pos_y == self.pos_y + 1):
             return True
-        elif 0 <= new_pos_y <= 7 and new_pos_x == self.pos_x:
-            return True
-        elif abs(new_pos_x - self.pos_x) == abs(new_pos_y - self.pos_y):
-            return True
+        
+        if 0 <= new_pos_y <= 7 and (new_pos_y == self.pos_y - 2 or new_pos_y == self.pos_y + 2) and (new_pos_x == self.pos_x - 1 or new_pos_x == self.pos_x + 1):
+            return True 
+
         else:
             return False

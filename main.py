@@ -12,7 +12,7 @@ def main():
     pygame.init()
     
     screen = pygame.display.set_mode((SIZE_X, SIZE_Y))
-    screen.fill((123,123,123))
+    screen.fill((200, 200, 200))
     pygame.display.set_caption("chess")
     pygame.font.init()
     font = pygame.font.SysFont(font, 30)

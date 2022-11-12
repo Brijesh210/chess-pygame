@@ -12,7 +12,7 @@ class Pawn(Figure):
         elif color == (0,0,0):
             img = pygame.image.load('res\\pawn_black.png')
             
-        img = pygame.transform.scale(img, (64, 64))
+        img = pygame.transform.scale(img, (60, 64))
         self.img = img
     
     def canMove(self, removed_figure, new_pos_x, new_pos_y):
