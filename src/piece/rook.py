@@ -15,8 +15,13 @@ class Rook(Figure):
         img = pygame.transform.scale(img, (64, 64))
         self.img = img
     
-    def canMove(self, new_pos_x, new_pos_y):
-        if new_pos_x == 2:
+    def canMove(self, removed_figure, new_pos_x, new_pos_y):
+        if 0 <= new_pos_x <= 7 and new_pos_y == self.pos_y:
             return True
-        return False
+        elif 0 <= new_pos_y <= 7 and new_pos_x == self.pos_x:
+            return True
+       
+        else:
+            return False
+
     
