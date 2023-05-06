@@ -1,13 +1,10 @@
-from this import d
-
-
-class Plyer():
-    def __init__(self, id, turn) -> None:
-        self.id = id
-        self.turn = turn
+class Player():
+    def __init__(self, piece_colour, turn = False) -> None:
+        self.piece_colour = piece_colour 
+        self.turn = turn 
         
-    def get_id(self):
-        return self.id
+    def get_piece_colour(self):
+        return self.piece_colour
     
     def get_turn(self):
         return self.turn

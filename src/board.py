@@ -6,21 +6,24 @@ from src.piece.rook import Rook
 from src.piece.knight import Knight
 from src.piece.bishop import Bishop
 from src.figure import Figure
+from src.player import Player
+from constants import COLOR_GRAY, COLOR_WHITE, COLOR_BLACK, COLOR_PURPLE 
 
-
-COLOR_GRAY = (128, 128, 200)
-COLOR_WHITE = (255, 255, 255)
-COLOR_BLACK = (0, 0, 0)
 
 class Button:
-    def __init__(self, screen, pos_x, pos_y, text):
+    def __init__(self, screen, pos_x, pos_y, text, size_x, size_y):
         self.pos_x = pos_x
         self.pos_y = pos_y
+        self.size_x = size_x
+        self.size_y = size_y   
         self.text = text
+        
         font = pg.font.Font("freesansbold.ttf", 20)
         self.text = font.render(text, True, (0,0,0))
-        self.rect = pg.draw.rect(screen, (123,150, 212), (self.pos_x, self.pos_y, 64, 24))
-        screen.blit(self.text, (pos_x +5, pos_y +3))
+        self.text_rect = self.text.get_rect(center=(pos_x + size_x/2, pos_y + size_y/2))
+        
+        self.rect = pg.draw.rect(screen, COLOR_PURPLE, (self.pos_x, self.pos_y, self.size_x, self.size_y))
+        screen.blit(self.text, self.text_rect)
 
 class TextBox:
     def __init__(self, screen, text):
@@ -136,3 +139,13 @@ class Board:
         self.figures.append(Rook(COLOR_BLACK, 7, 0))
         self.figures.append(Rook(COLOR_WHITE, 0, 7))
         self.figures.append(Rook(COLOR_WHITE, 7, 7))
+
+    def start(self):
+        player_black = Player("black")
+        player_white = Player("white")
+        
+        player_white.turn = True
+        
+    def quit(self):
+        return
+                
