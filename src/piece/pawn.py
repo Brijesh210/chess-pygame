@@ -15,7 +15,7 @@ class Pawn(Figure):
         img = pygame.transform.scale(img, (60, 64))
         self.img = img
     
-    def canMove(self, removed_figure, new_pos_x, new_pos_y):
+    def canMove(self, removed_figure, new_pos_x, new_pos_y, figures):
          
         if self.color == (255, 255, 255):
             if new_pos_y == self.pos_y - 1:

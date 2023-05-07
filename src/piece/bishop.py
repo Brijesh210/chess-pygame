@@ -15,7 +15,7 @@ class Bishop(Figure):
         img = pygame.transform.scale(img, (60, 64))
         self.img = img
 
-    def canMove(self, removed_figure, new_pos_x, new_pos_y):
+    def canMove(self, removed_figure, new_pos_x, new_pos_y, figures):
         if abs(new_pos_x - self.pos_x) == abs(new_pos_y - self.pos_y):
             return True
         else:

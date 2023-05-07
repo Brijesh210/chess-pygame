@@ -15,7 +15,7 @@ class King(Figure):
         img = pygame.transform.scale(img, (60, 64))
         self.img = img
 
-    def canMove(self, removed_figure, new_pos_x, new_pos_y):
+    def canMove(self, removed_figure, new_pos_x, new_pos_y, figures):
 
         # Move only 1 place any direction
         if 0 <= new_pos_x <= 7 and self.pos_x - 1 <= new_pos_x <= self.pos_x + 1:

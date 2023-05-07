@@ -16,12 +16,44 @@ class Queen(Figure):
         img = pygame.transform.scale(img, (60, 64))
         self.img = img
 
-    def canMove(self, removed_figure, new_pos_x, new_pos_y):
-        if 0 <= new_pos_x <= 7 and new_pos_y == self.pos_y:
+    #todo rook, bishop
+    def canMove(self, removed_figure, new_pos_x, new_pos_y, figures):
+        
+        if 0 <= new_pos_x <= 7 and new_pos_y == self.pos_y or 0 <= new_pos_y <= 7 and new_pos_x == self.pos_x or abs(new_pos_x - self.pos_x) == abs(new_pos_y - self.pos_y):
+            for i in range(min(self.pos_x, new_pos_x) + 1, max(self.pos_x, new_pos_x)):
+                print("hell_y_same = " + str(i))
+                if figures[i][self.pos_y] is not None:
+                    print("false here = y ")
+                    print(figures[self.pos_x][j])
+                    return False
+        
+            for j in range(min(self.pos_y, new_pos_y) + 1, max(self.pos_y, new_pos_y)):
+                print("hell_x_same= " + str(j))
+                
+                if figures[self.pos_x][j] is not None:
+                    print("false here = x")
+                    print(figures[self.pos_x][j])
+                    return False
+
+            x_dir = -1 if new_pos_x < self.pos_x else 1
+            y_dir = -1 if new_pos_y < self.pos_y else 1
+            for i, j in zip(range(self.pos_x + x_dir, new_pos_x, x_dir), range(self.pos_y + y_dir, new_pos_y, y_dir)):
+                if figures[i][j] is not None:
+                    return False
+        
             return True
-        elif 0 <= new_pos_y <= 7 and new_pos_x == self.pos_x:
-            return True
-        elif abs(new_pos_x - self.pos_x) == abs(new_pos_y - self.pos_y):
-            return True
+        
         else:
             return False
+
+
+
+    # def canMove(self, removed_figure, new_pos_x, new_pos_y):
+    #     if 0 <= new_pos_x <= 7 and new_pos_y == self.pos_y:
+    #         return True
+    #     elif 0 <= new_pos_y <= 7 and new_pos_x == self.pos_x:
+    #         return True
+    #     elif abs(new_pos_x - self.pos_x) == abs(new_pos_y - self.pos_y):
+    #         return True
+    #     else:
+    #         return False

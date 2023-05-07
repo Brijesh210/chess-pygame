@@ -47,10 +47,13 @@ class Board:
     color = None
     selected_figure = None
     removed_figure = None
+  
 
     def __init__(self, screen):
         self.figures = []
         self.boardPieces = []
+        self.board_pos = [[None for y in range(8)] for x in range(8)]
+        
         for i in range(8):
             for j in range(8):
                 if (i + j) % 2 == 0:
@@ -72,29 +75,52 @@ class Board:
         for figure in self.figures:
             if figure.pos_x == pos_x and figure.pos_y == pos_y:
                 self.removed_figure = figure
-
+                
+            
         if self.selected_figure is not None:
-            if self.selected_figure.canMove(self.removed_figure, pos_x, pos_y):
+                
+            if self.selected_figure.canMove(self.removed_figure, pos_x, pos_y, self.board_pos):
                 if self.removed_figure == None:
+                    #pos
+                    self.board_pos[self.selected_figure.pos_x][self.selected_figure.pos_y] = None
+                    
                     self.selected_figure.pos_x = pos_x
                     self.selected_figure.pos_y = pos_y
+                    #pos
+                    self.board_pos[self.selected_figure.pos_x][self.selected_figure.pos_y] = self.selected_figure
+                    
                     self.selected_figure = None
                     self.color = None
 
                 if self.removed_figure is not None:
                     if self.removed_figure.color != self.color:
                         self.figures.remove(self.removed_figure)
+                        #pos
+                        self.board_pos[self.removed_figure.pos_x][self.removed_figure.pos_y] = None
+                        
                         self.removed_figure = None
+                        
+                        #pos
+                        self.board_pos[self.selected_figure.pos_x][self.selected_figure.pos_y] = None
+                        
                         self.selected_figure.pos_x = pos_x
                         self.selected_figure.pos_y = pos_y
+                        #pos
+                        self.board_pos[self.selected_figure.pos_x][self.selected_figure.pos_y] = self.selected_figure
+                        
                         self.selected_figure = None
                         self.color = None
+                        
+                  
+                    
             else:
                 self.selected_figure = None
                 self.removed_figure = None
         else:
             self.selected_figure = None
             self.removed_figure = None
+        
+        
 
     def draw_boardPieces(self, screen):
         for piece in self.boardPieces:
@@ -139,6 +165,10 @@ class Board:
         self.figures.append(Rook(COLOR_BLACK, 7, 0))
         self.figures.append(Rook(COLOR_WHITE, 0, 7))
         self.figures.append(Rook(COLOR_WHITE, 7, 7))
+        
+        for figure in self.figures:
+            self.board_pos[figure.pos_x][figure.pos_y] = figure
+
 
     def start(self):
         player_black = Player("black")
