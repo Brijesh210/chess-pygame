@@ -26,18 +26,11 @@ class Queen(Figure):
             or abs(new_pos_x - self.pos_x) == abs(new_pos_y - self.pos_y)
         ):
             for i in range(min(self.pos_x, new_pos_x) + 1, max(self.pos_x, new_pos_x)):
-                print("hell_y_same = " + str(i))
                 if figures[i][self.pos_y] is not None:
-                    print("false here = y ")
-                    print(figures[self.pos_x][j])
                     return False
 
             for j in range(min(self.pos_y, new_pos_y) + 1, max(self.pos_y, new_pos_y)):
-                print("hell_x_same= " + str(j))
-
                 if figures[self.pos_x][j] is not None:
-                    print("false here = x")
-                    print(figures[self.pos_x][j])
                     return False
 
             x_dir = -1 if new_pos_x < self.pos_x else 1
