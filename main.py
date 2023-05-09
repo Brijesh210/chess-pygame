@@ -2,11 +2,14 @@ import pygame
 from src import board, player
 import math
 from constants import BOARD_SIZZE_Y, SIZE_X, SIZE_Y
+from server.network import Network
 
 
 def main():
     font = "Comic Sans MS"
     pygame.init()
+    
+    net = Network()
 
     screen = pygame.display.set_mode((SIZE_X, SIZE_Y))
     screen.fill((200, 200, 200))
