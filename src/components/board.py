@@ -1,33 +1,14 @@
 import pygame as pg
-from src.piece.pawn import Pawn
-from src.piece.king import King
-from src.piece.queen import Queen
-from src.piece.rook import Rook
-from src.piece.knight import Knight
-from src.piece.bishop import Bishop
-from src.figure import Figure
-from src.player import Player
-from constants import COLOR_GRAY, COLOR_WHITE, COLOR_BLACK, COLOR_PURPLE
+from .piece.pawn import Pawn
+from .piece.king import King
+from .piece.queen import Queen
+from .piece.rook import Rook
+from .piece.knight import Knight
+from .piece.bishop import Bishop
+from .figure import Figure
+from .player import Player
+from constants import COLOR_GRAY, COLOR_WHITE, COLOR_BLACK
 
-
-class Button:
-    def __init__(self, screen, pos_x, pos_y, text, size_x, size_y):
-        self.pos_x = pos_x
-        self.pos_y = pos_y
-        self.size_x = size_x
-        self.size_y = size_y
-        self.text = text
-
-        font = pg.font.Font("freesansbold.ttf", 20)
-        self.text = font.render(text, True, (0, 0, 0))
-        self.text_rect = self.text.get_rect(
-            center=(pos_x + size_x / 2, pos_y + size_y / 2)
-        )
-
-        self.rect = pg.draw.rect(
-            screen, COLOR_PURPLE, (self.pos_x, self.pos_y, self.size_x, self.size_y)
-        )
-        screen.blit(self.text, self.text_rect)
 
 
 class TextBox:
@@ -176,3 +157,5 @@ class Board:
 
     def quit(self):
         return
+
+

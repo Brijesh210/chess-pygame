@@ -7,9 +7,9 @@ class Pawn(Figure):
         super().__init__(pos_x, pos_y)
         self.color = color
         if color == (255, 255, 255):
-            img = pygame.image.load("res\\pawn_white.png")
+            img = pygame.image.load("resources\\pawn_white.png")
         elif color == (0, 0, 0):
-            img = pygame.image.load("res\\pawn_black.png")
+            img = pygame.image.load("resources\\pawn_black.png")
 
         img = pygame.transform.scale(img, (60, 64))
         self.img = img

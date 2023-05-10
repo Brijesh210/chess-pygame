@@ -8,9 +8,9 @@ class Knight(Figure):
         self.color = color
 
         if color == (255, 255, 255):
-            img = pygame.image.load("res\\knight_white.png")
+            img = pygame.image.load("resources\\knight_white.png")
         elif color == (0, 0, 0):
-            img = pygame.image.load("res\\knight_black.png")
+            img = pygame.image.load("resources\\knight_black.png")
 
         img = pygame.transform.scale(img, (60, 64))
         self.img = img

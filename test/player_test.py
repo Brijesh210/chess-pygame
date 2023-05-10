@@ -1,4 +1,4 @@
-from src.player import Player
+from src.components.player import Player
 
 
 def test_get_id():
