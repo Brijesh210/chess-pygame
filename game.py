@@ -1,5 +1,9 @@
 import pygame
-from src.components import board, button
+from src.components.board import Board
+from src.components.text_box import TextBox
+from src.components.button import Button
+from src.components.player import Player
+
 import math
 from constants import BOARD_SIZZE_Y, SIZE_X, SIZE_Y, FONT, COLOR_LIGHT_GRAY
 from network import Network
@@ -20,16 +24,25 @@ class Game:
         self.running = True
         self.game_started = False
 
-        self.chess_board = board.Board(self.screen)
+        self.chess_board = Board(self.screen)
         self.chess_board.reset()
         self.chess_board.draw_boardPieces(self.screen)
         self.chess_board.draw_figures(self.screen)
 
-        board.TextBox(self.screen, "white turn")
+        TextBox(self.screen, "white turn")
 
-        self.reset_button = button.Button(self.screen, 448, 0, "Reset", 64, 24)
-        self.quit_button = button.Button(self.screen, 383, 0, "Quit", 64, 24)
-        self.start_button = button.Button(self.screen, 200, 250, "Start Game", 128, 64)
+        self.reset_button = Button(self.screen, 448, 0, "Reset", 64, 24)
+        self.quit_button = Button(self.screen, 383, 0, "Quit", 64, 24)
+        self.start_button = Button(self.screen, 200, 250, "Start Game", 128, 64)
+        
+        """Player, Multiplayer network"""
+        self.player_black = Player("Black")
+        self.player_white = Player("White")
+        
+        
+    def init_player(self):
+        self.player_white.turn = True
+        
 
     def handle_start_game_event(self):
 

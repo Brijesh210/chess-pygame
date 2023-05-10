@@ -1,4 +1,3 @@
-import pygame as pg
 from .piece.pawn import Pawn
 from .piece.king import King
 from .piece.queen import Queen
@@ -6,28 +5,8 @@ from .piece.rook import Rook
 from .piece.knight import Knight
 from .piece.bishop import Bishop
 from .figure import Figure
-from .player import Player
 from constants import COLOR_GRAY, COLOR_WHITE, COLOR_BLACK
-
-
-
-class TextBox:
-    def __init__(self, screen, text):
-        font = pg.font.Font("freesansbold.ttf", 20)
-        self.text = font.render(text, True, (0, 0, 0))
-        screen.blit(self.text, (200, 3))
-
-
-class BoardPiece:
-    def __init__(self, pos_x, pos_y, color):
-        self.pos_x = pos_x
-        self.pos_y = pos_y
-        self.color = color
-
-    def draw(self, screen):
-        pg.draw.rect(
-            screen, self.color, (self.pos_x * 64, 25 + self.pos_y * 64, 64, 64)
-        )
+from .board_piece import BoardPiece
 
 
 class Board:
@@ -148,12 +127,7 @@ class Board:
 
         for figure in self.figures:
             self.board_pos[figure.pos_x][figure.pos_y] = figure
-
-    def start(self):
-        player_black = Player("black")
-        player_white = Player("white")
-
-        player_white.turn = True
+            
 
     def quit(self):
         return
