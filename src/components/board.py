@@ -7,6 +7,7 @@ from .piece.bishop import Bishop
 from .figure import Figure
 from constants import COLOR_GRAY, COLOR_WHITE, COLOR_BLACK
 from .board_piece import BoardPiece
+from .player import Player
 
 
 class Board:
@@ -18,6 +19,7 @@ class Board:
         self.figures = []
         self.boardPieces = []
         self.board_pos = [[None for y in range(8)] for x in range(8)]
+        self.next_turn = False
 
         for i in range(8):
             for j in range(8):
@@ -32,14 +34,15 @@ class Board:
                 print("selected")
                 self.selected_figure = figure
                 self.color = figure.color
+                print(self.color)
 
-    def moveFigure(self, pos_x, pos_y):
+    def moveFigure(self, pos_x, pos_y, color):
 
         for figure in self.figures:
             if figure.pos_x == pos_x and figure.pos_y == pos_y:
                 self.removed_figure = figure
 
-        if self.selected_figure is not None:
+        if self.selected_figure is not None :
 
             if self.selected_figure.canMove(
                 self.removed_figure, pos_x, pos_y, self.board_pos
@@ -55,6 +58,8 @@ class Board:
                     ] = self.selected_figure
                     self.selected_figure = None
                     self.color = None
+                    self.next_turn = True
+                    
 
                 if self.removed_figure is not None:
                     if self.removed_figure.color != self.color:
@@ -73,7 +78,8 @@ class Board:
                         ] = self.selected_figure
                         self.selected_figure = None
                         self.color = None
-
+                        self.next_turn = True
+                        
             else:
                 self.selected_figure = None
                 self.removed_figure = None

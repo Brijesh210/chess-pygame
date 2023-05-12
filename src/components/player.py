@@ -1,10 +1,21 @@
 class Player:
-    def __init__(self, piece_colour, turn=False) -> None:
-        self.piece_colour = piece_colour
-        self.turn = turn
+    def __init__(self, colour) -> None:
+        self.colour = colour
+        if self.colour == "White":
+            self.turn = True
+        elif self.colour == "Black":
+            self.turn = False
+            
+    def get_colour(self):
+        return self.colour
 
-    def get_piece_colour(self):
-        return self.piece_colour
-
-    def get_turn(self):
+    def has_turn(self):
         return self.turn
+    
+    def change_turn(self, first_player, second_player):
+        
+        if first_player.get_turn == True:
+            first_player.get_turn = False
+            second_player.get_turn = True 
+        else:
+            print("take your turn")
