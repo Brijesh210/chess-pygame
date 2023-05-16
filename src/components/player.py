@@ -12,10 +12,8 @@ class Player:
     def has_turn(self):
         return self.turn
     
-    def change_turn(self, first_player, second_player):
-        
-        if first_player.get_turn == True:
-            first_player.get_turn = False
-            second_player.get_turn = True 
-        else:
-            print("take your turn")
+    def change_turn(self):
+        if self.colour == "White":
+            self.colour = "Black"
+        elif self.colour == "Black":
+            self.colour = "White"

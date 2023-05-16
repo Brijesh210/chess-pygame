@@ -28,22 +28,30 @@ class Board:
                 else:
                     self.boardPieces.append(BoardPiece(i, j, COLOR_WHITE))
 
-    def selectFigure(self, pos_x, pos_y):
-        for figure in self.figures:
-            if figure.pos_x == pos_x and figure.pos_y == pos_y:
-                print("selected")
-                self.selected_figure = figure
-                self.color = figure.color
-                print(self.color)
+    def selectFigure(self, pos_x, pos_y, colour):
+        selected_figure = next(
+            (
+                figure
+                for figure in self.figures
+                if figure.pos_x == pos_x
+                and figure.pos_y == pos_y
+                and figure.color == colour
+            ),
+            None,
+        )
 
-    def moveFigure(self, pos_x, pos_y, color):
+        if selected_figure is not None:
+            print("selected")
+            self.selected_figure = selected_figure
+            self.color = self.selected_figure.color
+            print(self.color)
 
+    def moveFigure(self, pos_x, pos_y):
         for figure in self.figures:
             if figure.pos_x == pos_x and figure.pos_y == pos_y:
                 self.removed_figure = figure
 
-        if self.selected_figure is not None :
-
+        if self.selected_figure is not None:
             if self.selected_figure.canMove(
                 self.removed_figure, pos_x, pos_y, self.board_pos
             ):
@@ -59,7 +67,6 @@ class Board:
                     self.selected_figure = None
                     self.color = None
                     self.next_turn = True
-                    
 
                 if self.removed_figure is not None:
                     if self.removed_figure.color != self.color:
@@ -79,7 +86,7 @@ class Board:
                         self.selected_figure = None
                         self.color = None
                         self.next_turn = True
-                        
+
             else:
                 self.selected_figure = None
                 self.removed_figure = None
@@ -92,7 +99,6 @@ class Board:
             piece.draw(screen)
 
     def draw_figures(self, screen):
-
         for figure in self.figures:
             if figure.isRemove == False:
                 figure.draw(screen)
@@ -101,41 +107,38 @@ class Board:
         self.figures.clear()
 
         for i in range(8):
-            self.figures.append(Pawn(COLOR_BLACK, i, 1))
-            self.figures.append(Pawn(COLOR_WHITE, i, 6))
+            self.figures.append(Pawn("Black", i, 1))
+            self.figures.append(Pawn("White", i, 6))
 
         # King
 
-        self.figures.append(King(COLOR_BLACK, 4, 0))
-        self.figures.append(King(COLOR_WHITE, 4, 7))
+        self.figures.append(King("Black", 4, 0))
+        self.figures.append(King("White", 4, 7))
 
         # Queen
-        self.figures.append(Queen(COLOR_BLACK, 3, 0))
-        self.figures.append(Queen(COLOR_WHITE, 3, 7))
+        self.figures.append(Queen("Black", 3, 0))
+        self.figures.append(Queen("White", 3, 7))
 
         # Bishop
-        self.figures.append(Bishop(COLOR_BLACK, 2, 0))
-        self.figures.append(Bishop(COLOR_BLACK, 5, 0))
-        self.figures.append(Bishop(COLOR_WHITE, 2, 7))
-        self.figures.append(Bishop(COLOR_WHITE, 5, 7))
+        self.figures.append(Bishop("Black", 2, 0))
+        self.figures.append(Bishop("Black", 5, 0))
+        self.figures.append(Bishop("White", 2, 7))
+        self.figures.append(Bishop("White", 5, 7))
 
         # Knight
-        self.figures.append(Knight(COLOR_BLACK, 1, 0))
-        self.figures.append(Knight(COLOR_BLACK, 6, 0))
-        self.figures.append(Knight(COLOR_WHITE, 1, 7))
-        self.figures.append(Knight(COLOR_WHITE, 6, 7))
+        self.figures.append(Knight("Black", 1, 0))
+        self.figures.append(Knight("Black", 6, 0))
+        self.figures.append(Knight("White", 1, 7))
+        self.figures.append(Knight("White", 6, 7))
 
         # Rook
-        self.figures.append(Rook(COLOR_BLACK, 0, 0))
-        self.figures.append(Rook(COLOR_BLACK, 7, 0))
-        self.figures.append(Rook(COLOR_WHITE, 0, 7))
-        self.figures.append(Rook(COLOR_WHITE, 7, 7))
+        self.figures.append(Rook("Black", 0, 0))
+        self.figures.append(Rook("Black", 7, 0))
+        self.figures.append(Rook("White", 0, 7))
+        self.figures.append(Rook("White", 7, 7))
 
         for figure in self.figures:
             self.board_pos[figure.pos_x][figure.pos_y] = figure
-            
 
     def quit(self):
         return
-
-

@@ -34,79 +34,74 @@ class Game:
         self.reset_button = Button(self.screen, 448, 0, "Reset", 64, 24)
         self.quit_button = Button(self.screen, 383, 0, "Quit", 64, 24)
         self.start_button = Button(self.screen, 200, 250, "Start Game", 128, 64)
-        
+
         """Player, Multiplayer network"""
-    
+
         self.player = Player("White")
-        
-        
-        
+
     def init_player(self):
-       if self.player.has_turn():
-           self.color = self.player.piece_colour
-        
+        if self.player.has_turn():
+            self.color = self.player.colour
 
     def handle_start_game_event(self):
-
         self.chess_board.reset()
         self.game_started = True
-        self.init_player(self)
+        self.init_player()
 
     def handle_reset_game_event(self):
-
         self.chess_board.reset()
+        if self.player.colour == "Black":
+            self.player.change_turn()
+        
         self.game_started = False
 
     def handle_mouse_button_down_event(self, pos):
         if self.game_started:
+            if self.reset_button.rect.collidepoint(pos):
+                self.handle_reset_game_event()
             self.chess_board.selectFigure(
                 math.floor(pos[0] / 64),
                 math.floor((pos[1] - BOARD_SIZZE_Y) / 64),
+                self.player.colour,
             )
-            if self.reset_button.rect.collidepoint(pos):
-                self.handle_reset_game_event()
         else:
             if self.start_button.rect.collidepoint(pos):
                 self.handle_start_game_event()
 
     def handle_mouse_button_up_event(self, pos):
         if self.game_started:
-                
             self.chess_board.moveFigure(
                 math.floor(pos[0] / 64),
-                math.floor((pos[1] - BOARD_SIZZE_Y) / 64), self.color
+                math.floor((pos[1] - BOARD_SIZZE_Y) / 64),
             )
-            
+
             self.chess_board.draw_boardPieces(self.screen)
             self.chess_board.draw_figures(self.screen)
 
     def play(self):
-
         while self.running:
+            if self.chess_board.next_turn == True:
+                self.player.change_turn()
+                self.chess_board.next_turn = False
+                print("change turned")
 
             for event in pygame.event.get():
-                
-                    
                 if event.type == pygame.QUIT:
                     self.running = False
-                    
-                
 
                 event_handlers = {
                     pygame.MOUSEBUTTONDOWN: self.handle_mouse_button_down_event,
                     pygame.MOUSEBUTTONUP: self.handle_mouse_button_up_event,
                 }
+
                 handler = event_handlers.get(event.type)
 
                 if handler:
                     handler(pygame.mouse.get_pos())
 
-
                 if not self.game_started:
                     self.start_button.draw()
                 else:
                     self.reset_button.draw()
-
-
 
                 pygame.display.update()

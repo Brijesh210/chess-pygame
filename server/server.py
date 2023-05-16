@@ -1,5 +1,5 @@
 import socket
-from _thread import *
+from _thread import start_new_thread
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 

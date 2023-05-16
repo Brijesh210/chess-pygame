@@ -7,9 +7,9 @@ class Rook(Figure):
         super().__init__(pos_x, pos_y)
         self.color = color
 
-        if color == (255, 255, 255):
+        if color == "White":
             img = pygame.image.load("resources\\rook_white.png")
-        elif color == (0, 0, 0):
+        elif color == "Black":
             img = pygame.image.load("resources\\rook_black.png")
 
         img = pygame.transform.scale(img, (60, 64))
