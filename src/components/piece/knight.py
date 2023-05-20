@@ -8,12 +8,11 @@ class Knight(Figure):
         self.color = color
 
         if color == "White":
-            img = pygame.image.load("resources\\knight_white.png")
+            self.img = pygame.image.load("resources\\knight_white.png")
         elif color == "Black":
-            img = pygame.image.load("resources\\knight_black.png")
+            self.img = pygame.image.load("resources\\knight_black.png")
 
-        img = pygame.transform.scale(img, (60, 64))
-        self.img = img
+        self.img = pygame.transform.scale(self.img, (60, 64))
 
     def canMove(self, removed_figure, new_pos_x, new_pos_y, figures):
         if (

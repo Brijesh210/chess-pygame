@@ -8,15 +8,23 @@ class Bishop(Figure):
         self.color = color
 
         if color == "White":
-            img = pygame.image.load("resources\\bishop_white.png")
+            self.img = pygame.image.load("resources\\bishop_white.png")
         elif color == "Black":
-            img = pygame.image.load("resources\\bishop_black.png")
+            self.img = pygame.image.load("resources\\bishop_black.png")
 
-        img = pygame.transform.scale(img, (60, 64))
-        self.img = img
+        self.img = pygame.transform.scale(self.img, (60, 64))
 
-    def canMove(self, removed_figure, new_pos_x, new_pos_y, figures):
+    def canMove(self, removed_figure, new_pos_x, new_pos_y, board_pos):
         if abs(new_pos_x - self.pos_x) == abs(new_pos_y - self.pos_y):
+            x_dir = -1 if new_pos_x < self.pos_x else 1
+            y_dir = -1 if new_pos_y < self.pos_y else 1
+            for i, j in zip(
+                range(self.pos_x + x_dir, new_pos_x, x_dir),
+                range(self.pos_y + y_dir, new_pos_y, y_dir),
+            ):
+                if board_pos[i][j] is not None:
+                    return False
+
             return True
         else:
             return False

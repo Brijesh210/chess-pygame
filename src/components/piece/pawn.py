@@ -8,12 +8,11 @@ class Pawn(Figure):
         self.color = color
         self.first_move = True
         if color == "White":
-            img = pygame.image.load("resources\\pawn_white.png")
+            self.img = pygame.image.load("resources\\pawn_white.png")
         elif color == "Black":
-            img = pygame.image.load("resources\\pawn_black.png")
+            self.img = pygame.image.load("resources\\pawn_black.png")
 
-        img = pygame.transform.scale(img, (60, 64))
-        self.img = img
+        self.img = pygame.transform.scale(self.img, (60, 64))
 
     def canMove(self, removed_figure, new_pos_x, new_pos_y, figures):
         if self.color == "White":

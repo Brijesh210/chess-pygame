@@ -8,45 +8,48 @@ class Queen(Figure):
         self.color = color
 
         if color == "White":
-            img = pygame.image.load("resources\\queen_white.png")
+            self.img = pygame.image.load("resources\\queen_white.png")
         elif color == "Black":
-            img = pygame.image.load("resources\\queen_black.png")
+            self.img = pygame.image.load("resources\\queen_black.png")
 
-        img = pygame.transform.scale(img, (60, 64))
-        self.img = img
+        self.img = pygame.transform.scale(self.img, (60, 64))
 
+    def canMove(self, removed_figure, new_pos_x, new_pos_y, board_pos):
+        if self.pos_x == new_pos_x:
+            current_step = new_pos_y if self.pos_y > new_pos_y else self.pos_y
+            max_step = self.pos_y if self.pos_y > new_pos_y else new_pos_y
 
-    def canMove(self, removed_figure, new_pos_x, new_pos_y, figures):
-
-        if (
-            0 <= new_pos_x <= 7
-            and new_pos_y == self.pos_y
-            or 0 <= new_pos_y <= 7
-            and new_pos_x == self.pos_x
-            or abs(new_pos_x - self.pos_x) == abs(new_pos_y - self.pos_y)
-        ):
-            for i in range(min(self.pos_x, new_pos_x) + 1, max(self.pos_x, new_pos_x)):
-                if figures[i][self.pos_y] is not None:
-                    print("queen x false")
+            while current_step + 1 < max_step:
+                if board_pos[self.pos_x][current_step + 1] is not None:
                     return False
 
-            print("queen")
-            for j in range(min(self.pos_y, new_pos_y) + 1, max(self.pos_y, new_pos_y)):
-                if figures[self.pos_x][j] is not None:
-                    print("queen y false")
+                current_step = current_step + 1
+
+            return True
+
+        if self.pos_y == new_pos_y:
+            current_step = new_pos_x if self.pos_x > new_pos_x else self.pos_x
+            max_step = self.pos_x if self.pos_x > new_pos_x else new_pos_x
+
+            while current_step + 1 < max_step:
+                if board_pos[current_step + 1][new_pos_y] is not None:
                     return False
 
+                current_step = current_step + 1
+
+            return True
+
+        if abs(new_pos_x - self.pos_x) == abs(new_pos_y - self.pos_y):
             x_dir = -1 if new_pos_x < self.pos_x else 1
             y_dir = -1 if new_pos_y < self.pos_y else 1
             for i, j in zip(
                 range(self.pos_x + x_dir, new_pos_x, x_dir),
                 range(self.pos_y + y_dir, new_pos_y, y_dir),
             ):
-                print("queen d false")
-                if figures[i][j] is not None:
+                if board_pos[i][j] is not None:
                     return False
-            print("queen true")
+
             return True
 
-        else:
-            return False
+       
+        return False
