@@ -15,17 +15,30 @@ class Rook(Figure):
         img = pygame.transform.scale(img, (60, 64))
         self.img = img
 
-    def canMove(self, removed_figure, new_pos_x, new_pos_y, figures):
-        if 0 <= new_pos_x <= 7 and new_pos_y == self.pos_y:
-            z = abs(new_pos_x - self.pos_x)
-            if removed_figure is not None:
-                if removed_figure.pos_x in range(z - 1):
-                    return False
-            else:
-                return True
+    def canMove(self, removed_figure, new_pos_x, new_pos_y, boad_pos):
+        if self.pos_x == new_pos_x:
+            current_step = new_pos_y if self.pos_y > new_pos_y else self.pos_y
+            max_step = self.pos_y if self.pos_y > new_pos_y else new_pos_y
 
-        elif 0 <= new_pos_y <= 7 and new_pos_x == self.pos_x:
+            while current_step + 1 < max_step:
+                if boad_pos[self.pos_x][current_step + 1] is not None:
+                    return False
+
+                current_step = current_step + 1
+                
             return True
 
-        else:
-            return False
+        elif self.pos_y == new_pos_y:
+            current_step = new_pos_x if self.pos_x > new_pos_x else self.pos_x
+            max_step = self.pos_x if self.pos_x > new_pos_x else new_pos_x
+
+            while current_step + 1 < max_step:
+                if boad_pos[current_step + 1][new_pos_y] is not None:
+                    return False
+                
+                current_step = current_step + 1
+                
+            return True
+        
+        return False
+

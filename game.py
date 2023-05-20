@@ -12,8 +12,11 @@ from network import Network
 class Game:
     def __init__(self):
         pygame.init()
-        Network()
-
+        try:
+            Network()
+        except ConnectionRefusedError as e:
+            print("connection to server no possible, start server or check server ip", e)
+            
         self.screen = pygame.display.set_mode((SIZE_X, SIZE_Y))
         self.screen.fill(COLOR_LIGHT_GRAY)
 
@@ -83,7 +86,6 @@ class Game:
             if self.chess_board.next_turn == True:
                 self.player.change_turn()
                 self.chess_board.next_turn = False
-                print("change turned")
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

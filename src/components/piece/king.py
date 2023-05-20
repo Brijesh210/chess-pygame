@@ -19,10 +19,6 @@ class King(Figure):
 
         if 0 <= new_pos_x <= 7 and self.pos_x - 1 <= new_pos_x <= self.pos_x + 1:
             if 0 <= new_pos_y <= 7 and self.pos_y - 1 <= new_pos_y <= self.pos_y + 1:
-
-                if isinstance(removed_figure, King):
-                    return False
                 return True
-
         else:
             return False

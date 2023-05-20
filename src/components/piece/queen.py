@@ -15,7 +15,7 @@ class Queen(Figure):
         img = pygame.transform.scale(img, (60, 64))
         self.img = img
 
-    # TODO rook, bishop
+
     def canMove(self, removed_figure, new_pos_x, new_pos_y, figures):
 
         if (
@@ -27,10 +27,13 @@ class Queen(Figure):
         ):
             for i in range(min(self.pos_x, new_pos_x) + 1, max(self.pos_x, new_pos_x)):
                 if figures[i][self.pos_y] is not None:
+                    print("queen x false")
                     return False
 
+            print("queen")
             for j in range(min(self.pos_y, new_pos_y) + 1, max(self.pos_y, new_pos_y)):
                 if figures[self.pos_x][j] is not None:
+                    print("queen y false")
                     return False
 
             x_dir = -1 if new_pos_x < self.pos_x else 1
@@ -39,9 +42,10 @@ class Queen(Figure):
                 range(self.pos_x + x_dir, new_pos_x, x_dir),
                 range(self.pos_y + y_dir, new_pos_y, y_dir),
             ):
+                print("queen d false")
                 if figures[i][j] is not None:
                     return False
-
+            print("queen true")
             return True
 
         else:

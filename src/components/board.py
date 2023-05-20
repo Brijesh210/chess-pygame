@@ -44,7 +44,6 @@ class Board:
             print("selected")
             self.selected_figure = selected_figure
             self.color = self.selected_figure.color
-            print(self.color)
 
     def moveFigure(self, pos_x, pos_y):
         for figure in self.figures:
