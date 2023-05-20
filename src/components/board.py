@@ -51,11 +51,28 @@ class Board:
             if figure.pos_x == pos_x and figure.pos_y == pos_y:
                 self.removed_figure = figure
 
-        if self.selected_figure is not None:
-            if self.selected_figure.canMove(
-                self.removed_figure, pos_x, pos_y, self.board_pos
-            ):
-                if self.removed_figure == None:
+        if self.selected_figure is not None and self.selected_figure.canMove(
+            self.removed_figure, pos_x, pos_y, self.board_pos
+        ):
+            if self.removed_figure is None:
+                self.board_pos[self.selected_figure.pos_x][
+                    self.selected_figure.pos_y
+                ] = None
+                self.selected_figure.pos_x = pos_x
+                self.selected_figure.pos_y = pos_y
+                self.board_pos[self.selected_figure.pos_x][
+                    self.selected_figure.pos_y
+                ] = self.selected_figure
+                self.selected_figure = None
+                self.color = None
+                self.next_turn = True
+            else:
+                if self.removed_figure.color != self.color:
+                    self.figures.remove(self.removed_figure)
+                    self.board_pos[self.removed_figure.pos_x][
+                        self.removed_figure.pos_y
+                    ] = None
+                    self.removed_figure = None
                     self.board_pos[self.selected_figure.pos_x][
                         self.selected_figure.pos_y
                     ] = None
@@ -68,28 +85,6 @@ class Board:
                     self.color = None
                     self.next_turn = True
 
-                if self.removed_figure is not None:
-                    if self.removed_figure.color != self.color:
-                        self.figures.remove(self.removed_figure)
-                        self.board_pos[self.removed_figure.pos_x][
-                            self.removed_figure.pos_y
-                        ] = None
-                        self.removed_figure = None
-                        self.board_pos[self.selected_figure.pos_x][
-                            self.selected_figure.pos_y
-                        ] = None
-                        self.selected_figure.pos_x = pos_x
-                        self.selected_figure.pos_y = pos_y
-                        self.board_pos[self.selected_figure.pos_x][
-                            self.selected_figure.pos_y
-                        ] = self.selected_figure
-                        self.selected_figure = None
-                        self.color = None
-                        self.next_turn = True
-
-            else:
-                self.selected_figure = None
-                self.removed_figure = None
         else:
             self.selected_figure = None
             self.removed_figure = None
