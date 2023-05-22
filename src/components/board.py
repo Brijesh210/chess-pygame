@@ -8,6 +8,7 @@ from .figure import Figure
 from constants import COLOR_GRAY, COLOR_WHITE, COLOR_BLACK
 from .board_piece import BoardPiece
 from .player import Player
+import json
 
 
 class Board:
@@ -20,6 +21,16 @@ class Board:
         self.boardPieces = []
         self.board_pos = [[None for y in range(8)] for x in range(8)]
         self.next_turn = False
+        
+        with open("resources\\initial_position.json", "r") as file:
+            self.piece_position = json.load(file)
+
+        
+        # source_square = "E2"
+        # destination_square = "E4"
+
+        # self.piece_position[destination_square] = self.piece_position[source_square]
+        # del self.piece_position[source_square]
 
         for i in range(8):
             for j in range(8):
@@ -99,40 +110,70 @@ class Board:
 
     def reset(self):
         self.figures.clear()
+        
+        
+        for square, piece in self.piece_position.items():
+            col = int(square[1]) - 1
+            row = ord(square[0].upper()) - ord('A')
+            if piece[0] == "B":
+                color = "Black"
+            elif piece[0] == "W":
+                color = "White"
+        
 
-        for i in range(8):
-            self.figures.append(Pawn("Black", i, 1))
-            self.figures.append(Pawn("White", i, 6))
+            if piece[1] == 'Q':
+                self.figures.append(Queen(color, row, col))
+            elif piece[1] == 'K':
+                self.figures.append(King(color, row, col))
+            elif piece[1] == 'N':
+                self.figures.append(Knight(color, row, col))
+            elif piece[1] == 'P':
+                self.figures.append(Pawn(color, row, col))
+            elif piece[1] == 'B':
+                self.figures.append(Bishop(color, row, col))
+            elif piece[1] == 'R':
+                self.figures.append(Rook(color, row, col))
+           
+                
+            
 
-        # King
+        # for i in range(8):
+        #     self.figures.append(Pawn("Black", i, 1))
+        #     self.figures.append(Pawn("White", i, 6))
 
-        self.figures.append(King("Black", 4, 0))
-        self.figures.append(King("White", 4, 7))
+        # # King
 
-        # Queen
-        self.figures.append(Queen("Black", 3, 0))
-        self.figures.append(Queen("White", 3, 7))
+        # self.figures.append(King("Black", 4, 0))
+        # self.figures.append(King("White", 4, 7))
 
-        # Bishop
-        self.figures.append(Bishop("Black", 2, 0))
-        self.figures.append(Bishop("Black", 5, 0))
-        self.figures.append(Bishop("White", 2, 7))
-        self.figures.append(Bishop("White", 5, 7))
+        # # Queen
+        # self.figures.append(Queen("Black", 3, 0))
+        # self.figures.append(Queen("White", 3, 7))
 
-        # Knight
-        self.figures.append(Knight("Black", 1, 0))
-        self.figures.append(Knight("Black", 6, 0))
-        self.figures.append(Knight("White", 1, 7))
-        self.figures.append(Knight("White", 6, 7))
+        # # Bishop
+        # self.figures.append(Bishop("Black", 2, 0))
+        # self.figures.append(Bishop("Black", 5, 0))
+        # self.figures.append(Bishop("White", 2, 7))
+        # self.figures.append(Bishop("White", 5, 7))
 
-        # Rook
-        self.figures.append(Rook("Black", 0, 0))
-        self.figures.append(Rook("Black", 7, 0))
-        self.figures.append(Rook("White", 0, 7))
-        self.figures.append(Rook("White", 7, 7))
+        # # Knight
+        # self.figures.append(Knight("Black", 1, 0))
+        # self.figures.append(Knight("Black", 6, 0))
+        # self.figures.append(Knight("White", 1, 7))
+        # self.figures.append(Knight("White", 6, 7))
+
+        # # Rook
+        # self.figures.append(Rook("Black", 0, 0))
+        # self.figures.append(Rook("Black", 7, 0))
+        # self.figures.append(Rook("White", 0, 7))
+        # self.figures.append(Rook("White", 7, 7))
 
         for figure in self.figures:
             self.board_pos[figure.pos_x][figure.pos_y] = figure
 
     def quit(self):
         return
+
+    def update_piece_position(self, pos_x, pos_y, new_piece):
+        square = chr(ord('A') + pos_y) + str(pos_x + 1)
+        self.piece_position[square] = new_piece
