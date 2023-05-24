@@ -27,9 +27,9 @@ class Game:
         self.running = True
         self.game_started = False
 
-        self.chess_board = Board(self.screen)
+        self.chess_board = Board()
         self.chess_board.reset()
-        self.chess_board.draw_boardPieces(self.screen)
+        self.chess_board.draw_board_pieces(self.screen)
         self.chess_board.draw_figures(self.screen)
 
         TextBox(self.screen, "white turn")
@@ -37,8 +37,6 @@ class Game:
         self.reset_button = Button(self.screen, 448, 0, "Reset", 64, 24)
         self.quit_button = Button(self.screen, 383, 0, "Quit", 64, 24)
         self.start_button = Button(self.screen, 200, 250, "Start Game", 128, 64)
-
-        """Player, Multiplayer network"""
 
         self.player = Player("White")
 
@@ -78,7 +76,7 @@ class Game:
                 math.floor((pos[1] - BOARD_SIZZE_Y) / 64),
             )
 
-            self.chess_board.draw_boardPieces(self.screen)
+            self.chess_board.draw_board_pieces(self.screen)
             self.chess_board.draw_figures(self.screen)
 
     def play(self):

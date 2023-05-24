@@ -40,7 +40,7 @@ def threaded_client(conn):
                 if id == 0: nid = 1
                 if id == 1: nid = 0
 
-                reply = pos[nid][:]
+                reply = pos[nid][:] # type: ignore
                 print("Sending: " + reply)
 
             conn.sendall(str.encode(reply))
