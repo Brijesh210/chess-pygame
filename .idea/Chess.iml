@@ -7,4 +7,14 @@
     <orderEntry type="jdk" jdkName="Python 3.11 (Chess)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+  <component name="PackageRequirementsSettings">
+    <option name="removeUnused" value="true" />
+  </component>
+  <component name="PyNamespacePackagesService">
+    <option name="namespacePackageFolders">
+      <list>
+        <option value="$MODULE_DIR$/src" />
+      </list>
+    </option>
+  </component>
 </module>

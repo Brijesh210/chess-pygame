@@ -19,7 +19,6 @@ class Button:
         self.screen = screen
 
     def draw(self):
-
         self.rect = pygame.draw.rect(
             self.screen,
             COLOR_PURPLE,

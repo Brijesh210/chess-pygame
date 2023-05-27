@@ -16,7 +16,7 @@ class Game:
             Network()
         except ConnectionRefusedError as e:
             print("connection to server no possible, start server or check server ip", e)
-            
+
         self.screen = pygame.display.set_mode((SIZE_X, SIZE_Y))
         self.screen.fill(COLOR_LIGHT_GRAY)
 
@@ -53,7 +53,7 @@ class Game:
         self.chess_board.reset()
         if self.player.colour == "Black":
             self.player.change_turn()
-        
+
         self.game_started = False
 
     def handle_mouse_button_down_event(self, pos):

@@ -1,13 +1,11 @@
-from .piece.pawn import Pawn
-from .piece.king import King
-from .piece.queen import Queen
-from .piece.rook import Rook
-from .piece.knight import Knight
-from .piece.bishop import Bishop
-from .figure import Figure
-from constants import COLOR_GRAY, COLOR_WHITE, COLOR_BLACK
-from .board_piece import BoardPiece
-from .player import Player
+from src.components.piece.pawn import Pawn
+from src.components.piece.king import King
+from src.components.piece.queen import Queen
+from src.components.piece.rook import Rook
+from src.components.piece.knight import Knight
+from src.components.piece.bishop import Bishop
+from constants import COLOR_GRAY, COLOR_WHITE
+from src.components.board_piece import BoardPiece
 import json
 
 

@@ -1,5 +1,6 @@
 import pygame
 
+
 class BoardPiece:
     def __init__(self, pos_x, pos_y, color):
         self.pos_x = pos_x
@@ -10,4 +11,3 @@ class BoardPiece:
         pygame.draw.rect(
             screen, self.color, (self.pos_x * 64, 25 + self.pos_y * 64, 64, 64)
         )
-
