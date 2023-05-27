@@ -35,8 +35,8 @@ class Board:
                 figure
                 for figure in self.figures
                 if figure.pos_x == pos_x
-                and figure.pos_y == pos_y
-                and figure.color == colour
+                   and figure.pos_y == pos_y
+                   and figure.color == colour
             ),
             None,
         )
@@ -52,7 +52,7 @@ class Board:
                 self.removed_figure = figure
 
         if self.selected_figure is not None and self.selected_figure.canMove(
-            self.removed_figure, pos_x, pos_y, self.board_pos
+                self.removed_figure, pos_x, pos_y, self.board_pos
         ):
             if self.removed_figure is None:
                 self.board_pos[self.selected_figure.pos_x][
@@ -134,7 +134,6 @@ class Board:
 
         for figure in self.figures:
             self.board_pos[figure.pos_x][figure.pos_y] = figure
-
 
     def update_piece_position(self, pos_x, pos_y, new_piece):
         square = chr(ord("A") + pos_y) + str(pos_x + 1)
